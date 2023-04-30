@@ -1,0 +1,38 @@
+service: nuxt-app-lamba
+
+package:
+  patterns:
+    - '!.*/**'
+    - './output/**'
+  artifact: ./serverless.zip
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: dev
+  region: ap-southeast-2
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "cloudformation:DescribeStackResource"
+          Resource: "*"
+        # Allow functions to list all buckets
+        - Effect: Allow
+          Action: 's3:ListBucket'
+          Resource: '*'
+        # Allow functions to read/write objects in a bucket
+        - Effect: Allow
+          Action:
+            - 's3:GetObject'
+            - 's3:PutObject'
+          Resource:
+            - 'arn:aws:s3:::bucket-assets/*'
+
+
+functions:
+  nuxt:
+    handler: ./.output/server/index.handler
+    events:
+      - httpApi: '*'

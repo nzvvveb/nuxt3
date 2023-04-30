@@ -22,7 +22,7 @@ pnpm install
 Start the development server on `http://localhost:3000`
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 ## Production
@@ -30,14 +30,22 @@ npm run dev
 Build the application for production:
 
 ```bash
-npm run build
+pnpm run build
 ```
 
-Locally preview production build:
+Locally preview production build: (not available with aws-lambda preset)
 
 ```bash
-npm run preview
+pnpm run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
-# nuxt-amplify
+## deploy to AWS Serverless
+install [serverless framework](https://www.serverless.com/framework/docs/getting-started)
+
+```bash
+pnpm run package
+pnpm run deploy
+```
+
+
